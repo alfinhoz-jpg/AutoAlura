@@ -59,7 +59,7 @@
 
   async function clickCorrectAlternatives() {
     let multitaskSections = document.querySelectorAll(
-      "section.task.class-page-for-MULTIPLE_CHOICE.menu--inactive"
+      "section.task.class-page-for-MULTIPLE_CHOICE"
     );
     let alternativesClicked = false;
     console.log("Verificando se existem seções MULTIPLE_CHOICE.");
