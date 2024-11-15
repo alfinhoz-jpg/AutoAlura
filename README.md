@@ -1,18 +1,8 @@
 
-# AutoAlura Userscript
+# BotAlura Userscript
 
-AutoAlura is a userscript that automates interactions with the Alura platform, 
+BotALura (old AutoAlura) is a userscript that automates interactions with the Alura platform, 
 such as progressing through activities like videos, quizzes, and ordered blocks.
-
-## Features
-
-- Automatically plays videos and progresses to the next activity after 2 seconds.
-- Automatically selects the correct alternative in quizzes and progresses to the next activity.
-- Automatically selects blocks in the correct order, submits the answer, and progresses to the next activity.
-- Adds a "clicked" class to prevent repeated actions on the same elements.
-- Includes delays to ensure smooth transitions between actions.
-- Handles multiple alternatives and block activities.
-
 ## Requirements
 
 - Userscript manager (e.g., Tampermonkey, Greasemonkey) installed in your browser.
@@ -26,7 +16,6 @@ such as progressing through activities like videos, quizzes, and ordered blocks.
 ## Usage
 
 - The script will automatically detect the activity type (video, quiz, block) and perform the necessary actions.
-- If no videos, alternatives, or blocks are found, it will move to the next activity.
 
 ## License
 
