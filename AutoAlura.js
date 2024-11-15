@@ -18,8 +18,8 @@
   let blockClickDelay = 1000;
 
   const water_mark = document.querySelector(".formattedText");
-    if (water_mark) {
-        water_mark.innerHTML = "É o Alfinhoz vida!";
+  if (water_mark) {
+    water_mark.innerHTML = "É o Alfinhoz vida!";
   }
 
   async function autoPlayVideo() {
@@ -28,9 +28,9 @@
       video.play();
       console.log("Vídeo iniciado.");
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      return true; 
+      return true;
     }
-    return false; 
+    return false;
   }
 
   function clickCorrectAlternatives() {
@@ -52,29 +52,114 @@
           li.classList.add("clicked");
         }
       });
-      return true; 
+      return true;
     }
-    return false; 
+    return false;
   }
 
-  async function clickMultitaskAlternatives() {
-    const multitaskAlternatives = document.querySelectorAll(
-      'ul.alternativeList li[data-correct="true"]'
+  async function clickCorrectAlternatives() {
+    let multitaskSections = document.querySelectorAll(
+      "section.task.class-page-for-MULTIPLE_CHOICE.menu--inactive"
     );
+    let alternativesClicked = false;
+    console.log("Verificando se existem seções MULTIPLE_CHOICE.");
 
-    let clicked = false;
+    multitaskSections.forEach((section) => {
+      console.log("Entrando na seção MULTIPLE_CHOICE.");
 
-    multitaskAlternatives.forEach((li) => {
-      const checkboxInput = li.querySelector('input[type="checkbox"]');
-      if (checkboxInput && !li.classList.contains("clicked")) {
-        checkboxInput.click();
-        console.log("Clicando na alternativa multitask correta: " + li.innerText);
-        li.classList.add("clicked");
-        clicked = true;
+      const taskBody = section.querySelector(".task-body");
+      if (taskBody) {
+        console.log("Entrando na task-body.");
+
+        const taskWrapper = taskBody.querySelector(".task-body__wrapper");
+        if (taskWrapper) {
+          console.log("Entrando na task-body__wrapper.");
+
+          const mainContainer = taskWrapper.querySelector(
+            ".task-body-main.container"
+          );
+          if (mainContainer) {
+            console.log("Entrando no task-body-main.container.");
+
+            const multipleChoiceSection = mainContainer.querySelector(
+              ".multipleChoice#task-content"
+            );
+            if (multipleChoiceSection) {
+              console.log("Entrando na section.multipleChoice#task-content.");
+
+              const container =
+                multipleChoiceSection.querySelector("div.container");
+              if (container) {
+                console.log("Entrando no div.container.");
+
+                const alternativeList =
+                  container.querySelector("ul.alternativeList");
+                if (alternativeList) {
+                  console.log("Entrando no ul.alternativeList.");
+
+                  const form = alternativeList.querySelector("form");
+                  if (form) {
+                    console.log(
+                      "Entrando no form dentro do ul.alternativeList."
+                    );
+
+                    const correctAlternatives = form.querySelectorAll(
+                      'li[data-correct="true"]'
+                    );
+
+                    if (correctAlternatives.length > 0) {
+                      console.log("Alternativas corretas encontradas.");
+                      correctAlternatives.forEach((li) => {
+                        const checkboxInput = li.querySelector(
+                          'input[type="checkbox"]'
+                        );
+                        if (checkboxInput) {
+                          console.log(
+                            "Encontrei checkboxInput: ",
+                            checkboxInput
+                          );
+
+                          if (!li.classList.contains("clicked")) {
+                            checkboxInput.click();
+                            console.log(
+                              "Clicando na alternativa correta: " +
+                                li.querySelector(
+                                  ".alternativeList-item-alternative"
+                                ).textContent
+                            );
+                            const event = new Event("change", {
+                              bubbles: true,
+                              cancelable: true,
+                            });
+                            checkboxInput.dispatchEvent(event);
+                            li.classList.add("clicked");
+                            alternativesClicked = true;
+                            console.log("Alternativa clicada com sucesso.");
+                          } else {
+                            console.log("Alternativa já clicada.");
+                          }
+                        } else {
+                          console.log(
+                            "checkboxInput não encontrado dentro de: ",
+                            li
+                          );
+                        }
+                      });
+                    } else {
+                      console.log("Nenhuma alternativa correta encontrada.");
+                    }
+                  }
+                } else {
+                  console.log("ul.alternativeList não encontrada.");
+                }
+              }
+            }
+          }
+        }
       }
     });
 
-    return clicked;
+    return alternativesClicked;
   }
 
   function decodeBase64(encoded) {
@@ -199,7 +284,9 @@
       );
       if (nextButton) {
         nextButton.click();
-        console.log("Avançando para a próxima página após clicar na alternativa correta.");
+        console.log(
+          "Avançando para a próxima página após clicar na alternativa correta."
+        );
       }
       return;
     }
@@ -217,13 +304,15 @@
       );
       if (nextButton) {
         nextButton.click();
-        console.log("Avançando para a próxima página após clicar na alternativa multitask.");
+        console.log(
+          "Avançando para a próxima página após clicar na alternativa multitask."
+        );
       }
       return;
     }
-    
-    await clickBlocksInOrder(); 
-    
+
+    await clickBlocksInOrder();
+
     let nextButton = document.querySelector(
       "button.next, " +
         "a.next, " +
@@ -240,7 +329,7 @@
 
   function monitorPage() {
     let interval = setInterval(async () => {
-      if (!isScriptActive) return; 
+      if (!isScriptActive) return;
 
       await handlePageActivity();
     }, 3000);
