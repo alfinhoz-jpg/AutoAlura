@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         AutoAlura
 // @namespace    http://tampermonkey.net/
-// @version      0
+// @version      16/11
 // @description  Ninguem aguenta mais o alura :smile:
 // @author       Alfinhoz
 // @match        https://cursos.alura.com.br/*
 // @license GNU GPLv3
-// @icon https://imgur.com/NUyttbn
+// @icon ttps://imgs.search.brave.com/q-X8zxRbD9z64iH9Hr2d2LpfwG1L1kDsjKs1SUzyjNI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9hdHRh/Y2htZW50cy5ndXB5/LmlvL3Byb2R1Y3Rp/b24vY29tcGFuaWVz/Lzg4ODEvY2FyZWVy/LzIwNjAyL2ltYWdl/cy8yMDI0LTA3LTEy/XzE1LTEzX2NvbXBh/bnlMb2dvVXJsLmpw/Zw
 // @downloadURL https://update.greasyfork.org/scripts/510828/AutoAlura.user.js
 // @updateURL https://update.greasyfork.org/scripts/510828/AutoAlura.meta.js
 // ==/UserScript==
