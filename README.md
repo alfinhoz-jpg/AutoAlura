@@ -1,20 +1,16 @@
-Ninguem aguenta mais o AluraStart, foi por isso que criei :smile:
-
-https://greasyfork.org/pt-BR/scripts/510828-autoalura
-
-
+Ninguem aguenta mais o AluraStart, foi por isso que criei isto :D
 
 ## Necessário
-Tampermonkey (ou qualquer gerenciador de usescripts) 
+Tampermonkey (ou qualquer gerenciador de usescripts)
 
-## Legal fazer isso
-copie e cole o código em Novo Userscript e se divirta 😃
+## Importante!!!
+Para fazer nos netbooks do governo, use o Microsoft Edge, instale => https://www.tampermonkey.net/
+Logo após, vá para esse link e clique em Instalar => https://greasyfork.org/pt-BR/scripts/510828-autoalura
 
 qualquer coisa me chama via greasyfork ou pelo github community, tmj
 
-
-
-
-
-
-pra fazer no pc do governo, use o Microsoft Edge e divirta-se
+## Não deu certo pelo greasyfork? Siga estes passos:
+Abra a extensão tampermonkey (ou qualquer outro) 
+Clique em "Novo user script"
+Copie o código em AutoAlura.js
+cole e código e recarregue a página do Alura.
