@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         AutoAlura
 // @namespace    http://tampermonkey.net/
-// @version      16/11
-// @description  Ninguem aguenta mais o alura :smile:
+// @version      3
+// @description  Ninguem aguenta mais o alura 😃
 // @author       Alfinhoz
 // @match        https://cursos.alura.com.br/*
 // @license GNU GPLv3
@@ -14,27 +14,135 @@
 (function () {
   "use strict";
 
-  let isScriptActive = true;
+  let isScriptActive = localStoreage.getItem("autoAluraActive") === true;
   let blockClickDelay = 1000;
 
   const water_mark = document.querySelector(".formattedText");
   if (water_mark) {
-    water_mark.innerHTML = "É o Alfinhoz vida!";
+    water_mark.innerHTML = "É o Alfinhoz ✯";
+  }
+  //Painel :D
+  function toggleScript() {
+    isScriptActive = !isScriptActive;
+    localStorage.getItem("autoAluraActive", isScriptActive);
+    updateButtonState();
+    logToScreen(`AutoAlura ${isScriptActive ? "Ativado" : "Desativado"}`);
+  }
+
+  function updateButtonState() {
+    let toggleButton = document.getElementById("autoAluraToggle");
+    if (toggleButton) {
+      toggleButton.textContent = isScriptActive
+        ? "Desativar AutoAlura"
+        : "Ativar AutoAlura";
+      toggleButton.style.backgroundColor = isScriptActive
+        ? "#ff4444"
+        : "#44cc44";
+    }
+  }
+
+  function logToScreen(message) {
+    let logPanel = document.getElementById("AutoAluraLogs");
+    if (!logPanel) return;
+
+    let logEntry = document.createElement("div");
+    logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+    logEntry.style.padding = "5px";
+    logEntry.style.borderBottom = "1px solid #ccc";
+    logPanel.appendChild(logEntry);
+
+    logPanel.scrollTop = logPanel.scrollHeight;
+  }
+
+  function createUI() {
+    let existingButton = document.getElementById("autoAluraToggle");
+    if (existingButton) return;
+
+    let button = document.createElement("button");
+    button.id = "autoAluraToggle";
+    button.style.position = "fixed";
+    button.style.top = "10px";
+    button.style.right = "10px";
+    button.style.zIndex = "9999";
+    button.style.padding = "10px";
+    button.style.fontSize = "14px";
+    button.style.border = "none";
+    button.style.cursor = "pointer";
+    button.style.color = "white";
+    button.style.borderRadius = "5px";
+    button.onclick = toggleScript;
+    document.body.appendChild(button);
+    updateButtonState();
+
+    let logPanel = document.createElement("div");
+    logPanel.id = "autoAluraLogs";
+    logPanel.style.position = "fixed";
+    logPanel.style.bottom = "10px";
+    logPanel.style.right = "10px";
+    logPanel.style.width = "300px";
+    logPanel.style.maxHeight = "200px";
+    logPanel.style.overflowY = "auto";
+    logPanel.style.backgroundColor = "rgba(0,0,0,0.8)";
+    logPanel.style.color = "white";
+    logPanel.style.padding = "10px";
+    logPanel.style.fontSize = "12px";
+    logPanel.style.borderRadius = "5px";
+    logPanel.style.zIndex = "9999";
+    document.body.appendChild(logPanel);
   }
 
   // NAO AGUENTO MAIS ERRO NA PARTE DO VIODEO
   async function autoPlayVideo() {
     const video = document.querySelector("video");
     if (video && video.paused) {
-      console.log("Vídeo encontrado, iniciando...");
+      logToScreen("Vídeo encontrado, iniciando...");
       video.play();
       await new Promise((resolve) => {
         video.onplay = resolve; // <= ARRUMEEEEEEI
       });
-      console.log("Vídeo reproduzido.");
+      logToScreen("Vídeo reproduzido.");
       return true;
     }
     return false;
+  }
+
+  async function clickInOrderBlocks() {
+    const blocksContainer = document.querySelector(".blocks");
+    if (!blocksContainer) {
+      logToScreen("Blocos não encontrado.");
+      return;
+    }
+
+    //Decodificação
+    const decodedOrder = decodeURIComponent(escape(atob(atob(encodedOrder))));
+    const orderList = decodedOrder.split(",").map((text) => text.trim());
+    logToScreen("Decodificada: ", orderList);
+
+    const encondedOrder = blocksContainer.dataser.correctOrder;
+    if (!encondedOrder) {
+      logToScreen("Não encontrado, voltando");
+      return;
+    }
+
+    //Ordem dos blocos correta
+    let blockButtons = Array.from(blocksContainer.querySelectorAll(".block"));
+
+    for (const text of orderList) {
+      let blockButton = blockButtons.find(
+        (button) => button.textContent.trim() === text
+      );
+      if (blockButton && !blockButton.classList.contains("clicked")) {
+        try {
+          blockButton.click();
+          blockButton.classList.add("clicked");
+          await new Promise((resolve) => setTimeout(blockClickDelay));
+        } catch (error) {
+          logToScreen("Erro ao clicar no bloco:", error);
+        }
+      } else {
+        logToScreen("Bloco não encontrado ou já clicado:", text);
+      }
+    }
   }
 
   async function clickCorrectAlternatives() {
@@ -43,7 +151,7 @@
     );
     let alternativesClicked = false;
 
-    console.log("Verificando as seções MULTIPLE_CHOICE.");
+    logToScreen("Verificando as seções MULTIPLE_CHOICE.");
 
     for (let section of multitaskSections) {
       const taskBody = section.querySelector(".task-body");
@@ -71,7 +179,7 @@
                     );
 
                     if (correctAlternatives.length > 0) {
-                      console.log("Alternativas corretas encontradas.");
+                      logToScreen("Alternativas corretas encontradas.");
                       correctAlternatives.forEach((li) => {
                         const checkboxInput = li.querySelector(
                           'input[type="checkbox"]'
@@ -79,7 +187,7 @@
                         if (checkboxInput) {
                           if (!li.classList.contains("clicked")) {
                             checkboxInput.click();
-                            console.log(
+                            logToScreen(
                               "Clicando na alternativa correta (checkbox): " +
                                 li.querySelector(
                                   ".alternativeList-item-alternative"
@@ -96,7 +204,7 @@
                         }
                       });
                     } else {
-                      console.log("Nenhuma alternativa correta encontrada.");
+                      logToScreen("Nenhuma alternativa correta encontrada.");
                     }
                   }
                 }
@@ -119,7 +227,7 @@
         const radioInput = li.querySelector('input[type="radio"]');
         if (radioInput && !li.classList.contains("clicked")) {
           radioInput.click();
-          console.log(
+          logToScreen(
             "Cliquei na alternativa correta (radio): " + li.innerText
           );
           const event = new Event("change", {
@@ -146,9 +254,9 @@
     );
     if (nextButton) {
       nextButton.click();
-      console.log("Avançando para a próxima página.");
+      logToScreen("Avançando para a próxima página.");
     } else {
-      console.log("Botão de avanço não encontrado.");
+      logToScreen("Botão de avanço não encontrado.");
     }
   }
 
@@ -159,33 +267,33 @@
 
     const interval = setInterval(async () => {
       if (attempts >= maxAttempts) {
-        console.log("Máximo de tentativas atingido. Encerrando.");
+        logToScreen("Máximo de tentativas atingido. Encerrando.");
         clearInterval(interval);
         return;
       }
 
       const videoPlayed = await autoPlayVideo();
       if (videoPlayed) {
-        console.log("Vídeo iniciado, aguardando.");
+        logToScreen("Vídeo iniciado, aguardando.");
         await advanceToNextPage();
         return;
       }
 
       const multitaskClicked = await clickCorrectAlternatives();
       if (multitaskClicked) {
-        console.log("Alternativas múltiplas clicadas, aguardando avanço.");
+        logToScreen("Alternativas múltiplas clicadas, aguardando avanço.");
         await advanceToNextPage();
         return;
       }
 
       const alternativeClicked = await oneAlternative();
       if (alternativeClicked) {
-        console.log("Alternativa única clicada, aguardando avanço.");
+        logToScreen("Alternativa única clicada, aguardando avanço.");
         await advanceToNextPage();
         return;
       }
 
-      console.log("Nenhuma alternativa encontrada. Tentando avançar...");
+      logToScreen("Nenhuma alternativa encontrada. Tentando avançar...");
       await advanceToNextPage();
 
       attempts++;
@@ -193,7 +301,8 @@
   }
 
   function init() {
-    monitorPage();
+    createUI();
+    if (isScriptActive) monitorPage();
   }
 
   init();
