@@ -7,7 +7,7 @@ Tampermonkey (ou qualquer gerenciador de usescripts)
 Para fazer nos <strong>netbooks do governo</strong>, use o <strong>Microsoft Edge</strong>, instale => https://www.tampermonkey.net/ </br>
 Logo após, vá para esse link e clique em Instalar => https://greasyfork.org/pt-BR/scripts/510828-autoalura
 
-qualquer coisa me chame comentários GreasyFork ou instagram :DD
+qualquer coisa me chame pelos comentários do GreasyFork ou pelo instagram instagram :DD
 
 ## Não deu certo pelo greasyfork? Siga estes passos: 
 Abra a extensão tampermonkey (ou qualquer outro)</br>
