@@ -13,4 +13,4 @@ qualquer coisa me chama via greasyfork ou pelo github community, tmj
 Abra a extensão tampermonkey (ou qualquer outro)</br>
 Clique em "Novo user script"</br>
 Copie o código em AutoAlura.js</br>
-cole e código e recarregue a página do Alura.
+Cole o código e recarregue a página do Alura.
