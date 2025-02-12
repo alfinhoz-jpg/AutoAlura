@@ -40,12 +40,12 @@
     async function autoPlayVideo() {
       const video = document.querySelector("video");
       if (video && video.paused) {
-        console.log("Vídeo encontrado, iniciando...");
+        logToScreen("Vídeo encontrado, iniciando...");
         video.play();
         await new Promise((resolve) => {
           video.onplay = resolve; // <= ARRUMEEEEEEI
         });
-        console.log("Vídeo reproduzido.");
+        logToScreen("Vídeo reproduzido.");
         return true;
       }
       return false;
@@ -60,7 +60,7 @@
           const radioInput = li.querySelector('input[type="radio"]');
           if (radioInput && !li.classList.contains("clicked")) {
             radioInput.click();
-            console.log("Clicando na alternativa correta: " + li.innerText);
+            logToScreen("Clicando na alternativa correta: " + li.innerText);
             const event = new Event("change", {
               bubbles: true,
               cancelable: true,
@@ -80,7 +80,7 @@
       );
       let alternativesClicked = false;
   
-      console.log("Verificando as seções MULTIPLE_CHOICE.");
+      logToScreen("Verificando as seções MULTIPLE_CHOICE.");
   
       for (let section of multitaskSections) {
         const taskBody = section.querySelector(".task-body");
@@ -108,7 +108,7 @@
                       );
   
                       if (correctAlternatives.length > 0) {
-                        console.log("Alternativas corretas encontradas.");
+                        logToScreen("Alternativas corretas encontradas.");
                         correctAlternatives.forEach((li) => {
                           const checkboxInput = li.querySelector(
                             'input[type="checkbox"]'
@@ -116,7 +116,7 @@
                           if (checkboxInput) {
                             if (!li.classList.contains("clicked")) {
                               checkboxInput.click();
-                              console.log(
+                              logToScreen(
                                 "Clicando na alternativa correta (checkbox): " +
                                   li.querySelector(
                                     ".alternativeList-item-alternative"
@@ -133,7 +133,7 @@
                           }
                         });
                       } else {
-                        console.log("Nenhuma alternativa correta encontrada.");
+                        logToScreen("Nenhuma alternativa correta encontrada.");
                       }
                     }
                   }
@@ -153,7 +153,7 @@
     }
   
     async function clickBlocksInOrder() {
-      console.log("Iniciando a função clickBlocksInOrder.");
+      logToScreen("Iniciando a função clickBlocksInOrder.");
       const blocksContainer = document.querySelector(".blocks");
       if (blocksContainer) {
         const correctOrder = blocksContainer.dataset.correctOrder;
@@ -162,9 +162,9 @@
         let decodedTexts = decodeURIComponent(escape(secondDecoding))
           .split(",")
           .map((text) => text.trim());
-        console.log("Textos decodificados:", decodedTexts);
+        logToScreen("Textos decodificados:", decodedTexts);
         let blockButtons = Array.from(blocksContainer.querySelectorAll(".block")); // Alterado para let
-        console.log("Total de botões disponíveis:", blockButtons.length);
+        logToScreen("Total de botões disponíveis:", blockButtons.length);
   
         for (const text of decodedTexts) {
           let blockButton;
@@ -177,7 +177,7 @@
             if (blockButton && !blockButton.classList.contains("clicked")) {
               try {
                 blockButton.click();
-                console.log("Clicando no bloco: " + text);
+                logToScreen("Clicando no bloco: " + text);
                 blockButton.classList.add("clicked");
                 await new Promise((resolve) =>
                   setTimeout(resolve, blockClickDelay)
@@ -187,7 +187,7 @@
                 console.error("Erro ao clicar no bloco: ", error);
               }
             } else {
-              console.log(
+              logToScreen(
                 "Tentativa " +
                   (attempts + 1) +
                   ": Botão não encontrado ou já clicado para o texto: " +
@@ -217,10 +217,10 @@
         );
         if (nextButton) {
           nextButton.click();
-          console.log("Avançando para a próxima página após clicar nos blocos.");
+          logToScreen("Avançando para a próxima página após clicar nos blocos.");
         }
       } else {
-        console.log("Container de blocos não encontrado.");
+        logToScreen("Container de blocos não encontrado.");
       }
     }
   
@@ -228,16 +228,16 @@
       let submitButton = document.querySelector("#submitBlocks");
       if (submitButton) {
         submitButton.click();
-        console.log("Clicando em 'Submeter resposta'.");
+        logToScreen("Clicando em 'Submeter resposta'.");
       }
     }
   
     async function handlePageActivity() {
-      console.log("Verificando atividade na página.");
+      logToScreen("Verificando atividade na página.");
   
       const videoPlayed = await autoPlayVideo();
       if (videoPlayed) {
-        console.log("Avançando para a próxima página após o vídeo.");
+        logToScreen("Avançando para a próxima página após o vídeo.");
         let nextButton = document.querySelector(
           "button.next, " +
             "a.next, " +
@@ -265,7 +265,7 @@
         );
         if (nextButton) {
           nextButton.click();
-          console.log(
+          logToScreen(
             "Avançando para a próxima página após clicar na alternativa correta."
           );
         }
@@ -285,7 +285,7 @@
         );
         if (nextButton) {
           nextButton.click();
-          console.log(
+          logToScreen(
             "Avançando para a próxima página após clicar na alternativa multitask."
           );
         }
@@ -304,7 +304,7 @@
       );
       if (nextButton) {
         nextButton.click();
-        console.log("Avançando para a próxima página.");
+        logToScreen("Avançando para a próxima página.");
       }
     }
   
