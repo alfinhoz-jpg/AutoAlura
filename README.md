@@ -15,7 +15,7 @@ Ninguem aguenta mais o AluraStart, foi por isso que criei isto.</br>
 Para fazer nos <strong>netbooks do governo</strong>, use o <strong>Microsoft Edge</strong>, instale => https://www.tampermonkey.net/ </br>
 Logo após, vá para esse link e clique em Instalar => https://greasyfork.org/pt-BR/scripts/510828-autoalura
 
-qualquer coisa me chame pelos comentários do GreasyFork ou pelo instagram.
+Qualquer coisa me chame pelo instagram.
 
 ## Não deu certo pelo greasyfork? Siga estes passos: 
 Abra a extensão tampermonkey (ou qualquer outro)</br>
