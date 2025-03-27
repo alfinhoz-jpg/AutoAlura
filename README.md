@@ -20,7 +20,7 @@ Qualquer coisa me chame pelo instagram.
 ## Não deu certo pelo greasyfork? Siga estes passos: 
 Abra a extensão tampermonkey (ou qualquer outro)</br>
 Clique em "Novo user script"</br>
-Copie o código em AutoAlura.js</br>
+Copie o código em <a href="/AutoAlura.js">AutoAlura.js</a></br>
 Cole o código e recarregue a página do Alura.
 
 ## Tecnologias Usadas
